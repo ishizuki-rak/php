@@ -1,5 +1,7 @@
+<!-- HTMLとのやりとり -->
 <?php
     include("book_shelf.php");
+    include("book.php");
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -13,14 +15,18 @@
 
 <?php
     $books = $_POST['book'];
-    $book_shelf = new Book_shelf();
-    $book_shelf->addBookList($books[0]);
+    $book_ins = new Book();
+    $book_shelf_ins = new BookShelf();
 
-    foreach($books as $book){
-        $book_shelf->addBookList($book);
+    foreach($books as $book) {
+        // Bookクラスにデータを設定をお願い
+        $book_ins->setBook($book['title'], $book['auther'], $book['pages'], $book['description']);
+        // BookShelfクラスにリスト追加をお願い
+        $book_shelf_ins->addBookList($book_ins);
     }
 
-    echo $book_shelf->createTable();
+    // BookShelfクラスにメッセージ作成をお願い
+    echo $book_shelf_ins->createTable();
 ?>
     
 </body>
