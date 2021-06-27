@@ -1,23 +1,16 @@
 <?php
+// 本棚（Bookクラスをまとめたり使うクラス）
+
 include("book.php");
-class Book_shelf {
+class BookShelf {
     private array $book_list;
-    // public function getBookList() {
-    //     return $this->bool_list;
-    // }
 
     /**
-     * [
-     *     'title' => ?,
-     *     'auther' => ?,
-     *     'pages' => ?,
-     *     'description' => ?,
-     * ]
+     * Bookクラスインスタンスをリストにする
+     * @param Book $book
      */
-    public function addBookList($array){
-        $book = new Book();
-        $book->setBook($array['title'], $array['auther'], $array['pages'], $array['description']);
-        $book_list[] = $book;// array_push($book_list, $book);
+    public function addBookList(Book $book){
+        $this->book_list[] = $book;// array_push($book_list, $book);
     }
 
     // 現在の$book_listで出力する文字列を作成する
@@ -48,14 +41,14 @@ class Book_shelf {
         echo $table;
     }
 
-    private function createTableRow($book_one){
-        $book_one->getBook();
+    private function createTableRow($book){
+        $array = $book->getBook();
 
         return "<tr>
-            <td>". $book_one['title']      ."</td>
-            <td>". $book_one['auther']     ."</td>
-            <td>". $book_one['pages']      ."</td>
-            <td>". $book_one['description']."</td>
+            <td>". $array['title']      ."</td>
+            <td>". $array['auther']     ."</td>
+            <td>". $array['pages']      ."</td>
+            <td>". $array['description']."</td>
         </th></br>";
     }
 }
